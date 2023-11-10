@@ -2,4 +2,4 @@ botSubDomain=abraibot.onmicrosoft.com
 botName=AutoBimRouteBot
 projectPrefix=bimbot
 azureLocation=northeurope
-acrName=muradhro
+acrName=muradhroo
