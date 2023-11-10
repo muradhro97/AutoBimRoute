@@ -15,4 +15,3 @@ spec:
             spec:
               nodeSelector:
                 "beta.kubernetes.io/os": linux
-                
