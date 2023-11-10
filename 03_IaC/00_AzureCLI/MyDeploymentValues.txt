@@ -1,5 +1,5 @@
-botSubDomain=albot.vsalis.eu
-botName=myTeamsRecBot
-projectPrefix=albot
+botSubDomain=abraibot.onmicrosoft.com
+botName=AutoBimRouteBot
+projectPrefix=bimbot
 azureLocation=northeurope
-acrName=albotacr
+acrName=muradhro
