@@ -27,6 +27,8 @@ RUN /bot/ndp48-x86-x64-allos-enu.exe /install /quiet /norestart
 # Stage 2: Rest of the setup with Chocolatey
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
+SHELL ["powershell", "-Command"]
+
 # Set the working directory
 WORKDIR /bot
 
