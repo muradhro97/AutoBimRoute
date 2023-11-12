@@ -12,7 +12,7 @@ RUN nuget restore
 WORKDIR /src/RecordingBot.Console
 RUN msbuild /p:Configuration=Release /p:OutputPath=C:\app /p:Platform=x64
 
-FROM mcr.microsoft.com/windows:1809
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
 SHELL ["powershell", "-Command"]
 
 ADD https://aka.ms/vs/16/release/vc_redist.x64.exe /bot/VC_redist.x64.exe
@@ -23,10 +23,7 @@ COPY --from=build /app /bot
 
 WORKDIR /bot
 
-RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
-    [System.Net.ServicePointManager]::SecurityProtocol = \
-        [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; \
-        iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 RUN choco install openssl.light -y
 
