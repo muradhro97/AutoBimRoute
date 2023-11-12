@@ -22,7 +22,7 @@ SHELL ["powershell", "-Command"]
 ADD https://download.visualstudio.microsoft.com/download/pr/2d6bb6b2-226a-4baa-bdec-798822606ff1/8494001c276a4b96804cde7829c04d7f/ndp48-x86-x64-allos-enu.exe /bot/ndp48-x86-x64-allos-enu.exe
 
 # Running the redistributable file
-RUN /bot/ndp48-x86-x64-allos-enu.exe /install /quiet /norestart || IF %ERRORLEVEL% EQU 3010 (shutdown /r /t 0)
+RUN /bot/ndp48-x86-x64-allos-enu.exe /install /quiet /norestart
 
 # Final Stage
 FROM intermediate
@@ -36,7 +36,7 @@ WORKDIR /bot
 RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
     [System.Net.ServicePointManager]::SecurityProtocol = \
         [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; \
-    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) \
+    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 COPY --from=build /app /bot
 
