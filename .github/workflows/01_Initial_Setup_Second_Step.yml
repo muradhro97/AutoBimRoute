@@ -3,30 +3,40 @@
 #   2. A docker image with tag: 1.0.0 on your ACR
 name: 01_Initial_Setup_Second_Step
 
-on:  
+on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
+
 jobs:
  build_bot_docker_image:
     runs-on: windows-2019
-    env:      
+    env:
       imgVersion: 1.0.0
-    steps:      
+    steps:
       - uses: actions/checkout@v2
       - name: 'Load env variables from file using pwsh'
         shell: pwsh
         run: 03_IaC/00_AzureCLI/10_LoadEnvVariables.ps1
+      - name: Install .NET Framework
+      run: |
+        # Download the web installer
+        Invoke-WebRequest -Uri 'https://download.visualstudio.microsoft.com/download/pr/4f0b8c1b-51d8-45d1-9a61-af15eb66de89/1a26d15cf0a575fc17042ad6e5396c22/ndp48-x86-x64-allos-enu.exe' -OutFile 'dotnet_installer.exe'
+        
+        # Install .NET Framework silently
+        Start-Process -FilePath 'dotnet_installer.exe' -ArgumentList '/q' -Wait
+      - name: Reboot System
+         if: always()  # This step always runs, even if a previous step failed
+         run: shutdown /r /t 0  # Reboot the system after the .NET Framework installation
       - name: Docker Build
         working-directory: 00_RecordingBot
         run: |
           docker build --build-arg CallSignalingPort=<CALL_SIGNALING_PORT> --build-arg CallSignalingPort2=<CALL_SIGNALING_PORT+1> --build-arg InstanceInternalPort=<INSTANT_INTERNAL_PORT> -f ./build/Dockerfile . -t ${{env.acrName}}.azurecr.io/teams-recording-bot:${{env.imgVersion}}
-      - name: ACR authentication        
+      - name: ACR authentication
         uses: azure/docker-login@v1
         with:
           login-server: ${{ env.acrName }}.azurecr.io
           username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}    
-      - name: Docker Build & Push to ACR        
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Docker Build & Push to ACR
         run: |
           docker push ${{env.acrName}}.azurecr.io/teams-recording-bot:${{env.imgVersion}}
