@@ -38,7 +38,7 @@ COPY /scripts/halt_termination.ps1 /bot
 RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
     [System.Net.ServicePointManager]::SecurityProtocol = \
         [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; \
-    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 # Copy required files from the dotnet-installer stage
 COPY --from=dotnet-installer /bot /bot
@@ -51,4 +51,3 @@ EXPOSE $InstanceInternalPort
 EXPOSE $CallSignalingPort
 EXPOSE $CallSignalingPort2
 ENTRYPOINT [ "entrypoint.cmd" ]
-
