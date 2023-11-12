@@ -19,11 +19,10 @@ jobs:
         run: 03_IaC/00_AzureCLI/10_LoadEnvVariables.ps1
       - name: Install .NET Framework
         run: |
-          # Download the web installer
-          Invoke-WebRequest -Uri 'https://download.visualstudio.microsoft.com/download/pr/4f0b8c1b-51d8-45d1-9a61-af15eb66de89/1a26d15cf0a575fc17042ad6e5396c22/ndp48-x86-x64-allos-enu.exe' -OutFile 'dotnet_installer.exe'
-          
-          # Install .NET Framework silently
-          Start-Process -FilePath 'dotnet_installer.exe' -ArgumentList '/q' -Wait
+            # Download the web installer
+            Invoke-WebRequest -Uri 'https://download.visualstudio.microsoft.com/download/pr/4f0b8c1b-51d8-45d1-9a61-af15eb66de89/1a26d15cf0a575fc17042ad6e5396c22/ndp48-x86-x64-allos-enu.exe' -OutFile 'dotnet_installer.exe'
+            # Install .NET Framework silently
+            Start-Process -FilePath 'dotnet_installer.exe' -ArgumentList '/q' -Wait
       - name: Reboot System
          if: always()  # This step always runs, even if a previous step failed
          run: shutdown /r /t 0  # Reboot the system after the .NET Framework installation
