@@ -12,10 +12,10 @@ RUN nuget restore
 WORKDIR /src/RecordingBot.Console
 RUN msbuild /p:Configuration=Release /p:OutputPath=C:\app /p:Platform=x64
 
-ADD https://aka.ms/vs/16/release/vc_redist.x64.exe /bot/VC_redist.x64.exe
-
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 SHELL ["powershell", "-Command"]
+
+ADD https://aka.ms/vs/16/release/vc_redist.x64.exe /bot/VC_redist.x64.exe
 
 COPY /scripts/entrypoint.cmd /bot
 COPY /scripts/halt_termination.ps1 /bot
@@ -37,5 +37,6 @@ EXPOSE $InstanceInternalPort
 EXPOSE $CallSignalingPort
 EXPOSE $CallSignalingPort2
 
-ENTRYPOINT ["entrypoint.cmd"]
+ENTRYPOINT [ "entrypoint.cmd" ]
+
 
