@@ -23,15 +23,15 @@ COPY --from=build /app /bot
 
 WORKDIR /bot
 
+# Reboot the system to complete .NET installation
+RUN shutdown /r
+
+# Wait for the system to reboot
+CMD ["ping", "-t", "localhost"]
+
 RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 RUN choco install openssl.light -y
-
-## Reboot the system to complete .NET installation
-#RUN shutdown /r
-#
-## Wait for the system to reboot
-#CMD ["ping", "-t", "localhost"]
 
 EXPOSE $InstanceInternalPort
 EXPOSE $CallSignalingPort
