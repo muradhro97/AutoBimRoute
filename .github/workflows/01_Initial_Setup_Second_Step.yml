@@ -20,7 +20,7 @@ jobs:
       - name: Install .NET Framework
         run: |
           # Download the .NET Framework 4.8 web installer
-          Invoke-WebRequest -Uri 'https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-web-installer' -OutFile 'dotnet_installer.exe'
+          Invoke-WebRequest -Uri 'https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-developer-pack-offline-installer' -OutFile 'dotnet_installer.exe'
 
           # Install .NET Framework 4.8 silently
           Start-Process -FilePath 'dotnet_installer.exe' -ArgumentList '/q' -Wait
