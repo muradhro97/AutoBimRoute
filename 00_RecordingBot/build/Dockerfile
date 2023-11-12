@@ -24,9 +24,6 @@ ADD https://download.visualstudio.microsoft.com/download/pr/2d6bb6b2-226a-4baa-b
 # Running the redistributable file
 RUN /bot/ndp48-x86-x64-allos-enu.exe /install /quiet /restart
 
-# Final Stage
-FROM intermediate
-
 COPY /scripts/entrypoint.cmd /bot
 COPY /scripts/halt_termination.ps1 /bot
 
