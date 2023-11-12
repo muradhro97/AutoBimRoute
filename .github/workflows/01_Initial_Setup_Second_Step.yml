@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
- build_bot_docker_image:
+  build_bot_docker_image:
     runs-on: windows-2019
     env:
       imgVersion: 1.0.0
@@ -17,15 +17,6 @@ jobs:
       - name: 'Load env variables from file using pwsh'
         shell: pwsh
         run: 03_IaC/00_AzureCLI/10_LoadEnvVariables.ps1
-      - name: Install .NET Framework
-        run: |
-          # Download the .NET Framework 4.8 web installer
-          Invoke-WebRequest -Uri 'https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-developer-pack-offline-installer' -OutFile 'dotnet_installer.exe'
-
-          # Install .NET Framework 4.8 silently
-          Start-Process -FilePath 'dotnet_installer.exe' -ArgumentList '/q' -Wait
-      - name: Reboot System
-        run: shutdown /r /t 0  # Reboot the system after the .NET Framework installation
       - name: Docker Build
         working-directory: 00_RecordingBot
         run: |
