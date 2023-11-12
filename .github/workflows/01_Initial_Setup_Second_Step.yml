@@ -19,7 +19,11 @@ jobs:
         run: 03_IaC/00_AzureCLI/10_LoadEnvVariables.ps1
       - name: Install .NET Framework
         run: |
-          choco install dotnet48 -y  # Use Chocolatey to install .NET Framework 4.8
+          # Download the .NET Framework 4.8 web installer
+          Invoke-WebRequest -Uri 'https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net48-web-installer' -OutFile 'dotnet_installer.exe'
+
+          # Install .NET Framework 4.8 silently
+          Start-Process -FilePath 'dotnet_installer.exe' -ArgumentList '/q' -Wait
       - name: Reboot System
         run: shutdown /r /t 0  # Reboot the system after the .NET Framework installation
       - name: Docker Build
