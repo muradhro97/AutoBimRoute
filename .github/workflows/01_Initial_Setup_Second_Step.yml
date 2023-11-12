@@ -24,8 +24,7 @@ jobs:
             # Install .NET Framework silently
             Start-Process -FilePath 'dotnet_installer.exe' -ArgumentList '/q' -Wait
       - name: Reboot System
-         if: always()  # This step always runs, even if a previous step failed
-         run: shutdown /r /t 0  # Reboot the system after the .NET Framework installation
+           run: shutdown /r /t 0  # Reboot the system after the .NET Framework installation
       - name: Docker Build
         working-directory: 00_RecordingBot
         run: |
