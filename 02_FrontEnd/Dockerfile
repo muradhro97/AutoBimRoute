@@ -12,8 +12,8 @@ RUN npm install
 # build
 RUN npm run build
 
-# remove development dependencies
-RUN npm prune --production
+## remove development dependencies
+#RUN npm prune --production
 
 # run node prune
 RUN /usr/local/bin/node-prune
