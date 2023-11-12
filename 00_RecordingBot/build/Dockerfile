@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019 AS build
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.8 AS build
 
 ARG CallSignalingPort=9441
 ARG CallSignalingPort2=9442
@@ -12,6 +12,8 @@ RUN nuget restore
 WORKDIR /src/RecordingBot.Console
 RUN msbuild /p:Configuration=Release /p:OutputPath=C:\app /p:Platform=x64
 
+ADD https://aka.ms/vs/16/release/vc_redist.x64.exe /bot/VC_redist.x64.exe
+
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 SHELL ["powershell", "-Command"]
 
@@ -23,13 +25,10 @@ COPY --from=build /app /bot
 
 WORKDIR /bot
 
-# Reboot the system to complete .NET installation
-RUN shutdown /r
-
-# Wait for the system to reboot
-CMD ["ping", "-t", "localhost"]
-
-RUN iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+RUN Set-ExecutionPolicy Bypass -Scope Process -Force; \
+    [System.Net.ServicePointManager]::SecurityProtocol = \
+        [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; \
+        iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
 RUN choco install openssl.light -y
 
@@ -37,6 +36,4 @@ EXPOSE $InstanceInternalPort
 EXPOSE $CallSignalingPort
 EXPOSE $CallSignalingPort2
 
-ENTRYPOINT [ "entrypoint.cmd" ]
-
-
+ENTRYPOINT ["entrypoint.cmd"]
