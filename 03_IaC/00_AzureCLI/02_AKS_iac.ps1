@@ -64,6 +64,7 @@ kubectl delete ns teams-recording-bot
 kubectl delete secrets bot-application-secrets --namespace teams-recording-bot
 
 # Create a Public Ip on the MC_RESOURCEGROUP_AKSCLUSTERNAME_AZUREREGION Resource group
+#done
 Write-Output "About get public ip: $publicIpName (this should have been created on the previous step)"
 $publicIpAddress = az network public-ip show --resource-group $AKSmgResourceGroup --name $publicIpName --query 'ipAddress'
 Write-Output "Got public ip: $publicIpAddress"
@@ -72,6 +73,7 @@ Write-Output "Got public ip: $publicIpAddress"
 # Starting to setup things
 
 # Create namespace
+#done
 Write-Output "About to create teams-recording-bot namespace"
 kubectl create ns teams-recording-bot
 
@@ -81,9 +83,11 @@ kubectl create secret tls tls-secret --cert=C:\Users\vasalis\Desktop\RecordingBo
 
 
 # Setup AKS namespace for teams-recording-bot
+#done
 Write-Output "Creating teams-recording-bot namespace and bot secret that holds BOT_ID, BOT_SECRET, BOT_NAME, Cognitive Service Key and Middleware End Point"
 Write-Output "Botname is: $env:botName and Persistance end point is: $env:persistenceEndPoint, Application Insights Key is: $appInsightsKey"
 
+# done
 kubectl create secret generic bot-application-secrets --namespace teams-recording-bot --from-literal=applicationId=$env:BOT_ID `
  --from-literal=applicationSecret=$env:BOT_SECRET `
  --from-literal=botName=$env:botName `
@@ -95,4 +99,4 @@ kubectl create secret generic bot-application-secrets --namespace teams-recordin
 
 # Create bot & NLB
 Write-Host "Applying bot YAML configuration" -ForegroundColor Yellow
-kubectl apply -f .\bots-light-k8.yaml --namespace teams-recording-bot
+kubectl apply -f bots-light-k8.yaml --namespace teams-recording-bot
