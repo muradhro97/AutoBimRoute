@@ -48,8 +48,8 @@ az aks update -n $AKSClusterName -g $resourceGroupName --attach-acr $acrName
 # Move the Public IP address to MC_ resource group. 
 # This is needed in order for the load balancer to get assigned with the Public IP, otherwise you might end up in a "pending" state.
 Write-Output "Move Public IP resource to MC_ resource group"
-$publicIpAddressId = az network public-ip show --resource-group $resourceGroupName --name $publicIpName --query 'id'
-az resource move --destination-group $AKSmgResourceGroup --ids $publicIpAddressId
+<#$publicIpAddressId = az network public-ip show --resource-group $resourceGroupName --name $publicIpName --query 'id'
+az resource move --destination-group $AKSmgResourceGroup --ids $publicIpAddressId#>
 
 # Starting with basic setup
 Write-Output "Getting AKS credentials for cluster: $AKSClusterName"
