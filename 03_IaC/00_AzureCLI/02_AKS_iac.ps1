@@ -99,4 +99,4 @@ kubectl create secret generic bot-application-secrets --namespace teams-recordin
 
 # Create bot & NLB
 Write-Host "Applying bot YAML configuration" -ForegroundColor Yellow
-kubectl apply -f ./bots-light-k8.yaml --namespace teams-recording-bot
+kubectl apply -f "03_IaC\00_AzureCLI\bots-light-k8.yaml" --namespace teams-recording-bot
