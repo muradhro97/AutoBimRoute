@@ -29,7 +29,9 @@ Write-Output "Got app insights key: $appInsightsKey"
 
 
 # Create the AKS Cluster
-Write-Output "About to create AKS cluster: $resourceGroupName" 
+Write-Output "About to create AKS cluster: $resourceGroupName"
+Write-Output "az aks create --resource-group $resourceGroupName --name $AKSClusterName --node-count 1 --enable-addons monitoring --generate-ssh-keys --windows-admin-password $PASSWORD_WIN --windows-admin-username azureuser --vm-set-type VirtualMachineScaleSets --network-plugin azure --service-principal $env:SP_ID --client-secret $env:SP_SECRET"
+
 az aks create --resource-group $resourceGroupName --name $AKSClusterName --node-count 1 --enable-addons monitoring --generate-ssh-keys --windows-admin-password $PASSWORD_WIN --windows-admin-username azureuser --vm-set-type VirtualMachineScaleSets --network-plugin azure --service-principal $env:SP_ID --client-secret $env:SP_SECRET
 
 # Add the Windows Node pool
