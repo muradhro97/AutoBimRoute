@@ -1,5 +1,6 @@
 # Helping variables
-$botSubDomain = $env:botSubDomain
+#$botSubDomain = $env:botSubDomain
+$botSubDomain = murad.abraibot.onmicrosoft.com
 $azureLocation = $env:azureLocation
 $projectPrefix = $env:projectPrefix
 $resourceGroupName = $projectPrefix +"_rg"
@@ -17,7 +18,8 @@ Write-Output "(Got from ENV): RG: $resourceGroupName, MC rg: $AKSmgResourceGroup
 Write-Output "Environment Azure CL: $(az --version)"
 
 # Get Public IP
-$publicIpAddress = az network public-ip show --resource-group $AKSmgResourceGroup --name $publicIpName --query 'ipAddress'
+#$publicIpAddress = az network public-ip show --resource-group $AKSmgResourceGroup --name $publicIpName --query 'ipAddress'
+$publicIpAddress = 20.84.67.131
 
 # Connect to Cluster
 Write-Output "Getting AKS credentials for cluster: $AKSClusterName"
