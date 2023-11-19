@@ -95,7 +95,7 @@ kubectl create secret generic bot-application-secrets --namespace teams-recordin
  --from-literal=persistenceEndPoint=$env:persistenceEndPoint `
  --from-literal=azureCognitiveRegion=$azureLocation `
  --from-literal=appInsightsKey=$appInsightsKey `
- --from-literal=serviceDnsName=$botSubDomain
+ --from-literal=serviceDnsName=murad.abraibot.onmicrosoft.com
 
 # Create bot & NLB
 Write-Host "Applying bot YAML configuration" -ForegroundColor Yellow
