@@ -5,7 +5,7 @@ $projectPrefix = $env:projectPrefix
 $resourceGroupName = $projectPrefix +"_rg"
 $imgVersion = $env:imgVersion
 
-$AKSClusterName = "recBotAKSCluster"
+$AKSClusterName = "recBotAKSCluster2"
 
 $AKSmgResourceGroup = "MC_"+$resourceGroupName+"_"+"$AKSClusterName"+"_"+$azureLocation
 $publicIpName = "myRecBotPublicIP"
