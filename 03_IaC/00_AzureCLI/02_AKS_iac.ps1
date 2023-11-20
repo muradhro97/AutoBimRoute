@@ -42,8 +42,8 @@ az aks nodepool add --resource-group $resourceGroupName --cluster-name $AKSClust
 Write-Output "About to create ACR: $acrName"
 az acr create --resource-group $resourceGroupName --name $acrName --sku Basic --admin-enabled true
 
-#Write-Output "Updating AKS cluster with ACR"
-#az aks update -n $AKSClusterName -g $resourceGroupName --attach-acr $acrName
+Write-Output "Updating AKS cluster with ACR"
+az aks update -n $AKSClusterName -g $resourceGroupName --attach-acr $acrName
 
 # Move the Public IP address to MC_ resource group. 
 # This is needed in order for the load balancer to get assigned with the Public IP, otherwise you might end up in a "pending" state.
@@ -59,9 +59,9 @@ az aks get-credentials --resource-group $resourceGroupName --name $AKSClusterNam
 # on first run this will give errors, but when running it again it will restore things to initial state.
 
 # delete namespace to clean things up.
-#kubectl delete ns teams-recording-bot
+kubectl delete ns teams-recording-bot
 # make sure the secret is updated - so delete it if there
-#kubectl delete secrets bot-application-secrets --namespace teams-recording-bot
+kubectl delete secrets bot-application-secrets --namespace teams-recording-bot
 
 # Create a Public Ip on the MC_RESOURCEGROUP_AKSCLUSTERNAME_AZUREREGION Resource group
 #done
@@ -74,12 +74,12 @@ az aks get-credentials --resource-group $resourceGroupName --name $AKSClusterNam
 
 # Create namespace
 #done
-#Write-Output "About to create teams-recording-bot namespace"
-#kubectl create ns teams-recording-bot
+Write-Output "About to create teams-recording-bot namespace"
+kubectl create ns teams-recording-bot
 
 # Upload certs
-#Write-Host "Uploading certificate to new secret" -ForegroundColor Yellow
-#kubectl create secret tls tls-secret --cert=C:\Users\vasalis\Desktop\RecordingBotCerts\tls.crt --key=C:\Users\vasalis\Desktop\RecordingBotCerts\tls.key --namespace teams-recording-bot
+Write-Host "Uploading certificate to new secret" -ForegroundColor Yellow
+kubectl create secret tls tls-secret --cert=C:\Users\vasalis\Desktop\RecordingBotCerts\tls.crt --key=C:\Users\vasalis\Desktop\RecordingBotCerts\tls.key --namespace teams-recording-bot
 
 
 # Setup AKS namespace for teams-recording-bot
