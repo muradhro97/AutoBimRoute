@@ -66,8 +66,8 @@ kubectl delete secrets bot-application-secrets --namespace teams-recording-bot
 # Create a Public Ip on the MC_RESOURCEGROUP_AKSCLUSTERNAME_AZUREREGION Resource group
 #done
 #Write-Output "About get public ip: $publicIpName (this should have been created on the previous step)"
-#$publicIpAddress = az network public-ip show --resource-group $AKSmgResourceGroup --name $publicIpName --query 'ipAddress'
-#Write-Output "Got public ip: $publicIpAddress"
+$publicIpAddress = az network public-ip show --resource-group $AKSmgResourceGroup --name $publicIpName --query 'ipAddress'
+Write-Output "Got public ip: $publicIpAddress"
 
 
 # Starting to setup things
