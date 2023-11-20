@@ -86,6 +86,14 @@ kubectl create secret tls tls-secret --cert=C:\Users\vasalis\Desktop\RecordingBo
 #done
 Write-Output "Creating teams-recording-bot namespace and bot secret that holds BOT_ID, BOT_SECRET, BOT_NAME, Cognitive Service Key and Middleware End Point"
 Write-Output "Botname is: $env:botName and Persistance end point is: $env:persistenceEndPoint, Application Insights Key is: $appInsightsKey"
+Write-Output "kubectl create secret generic bot-application-secrets --namespace teams-recording-bot --from-literal=applicationId=$env:BOT_ID
+ --from-literal=applicationSecret=$env:BOT_SECRET
+ --from-literal=botName=$env:botName
+ --from-literal=azureCognitiveKey=$env:azureCognitiveKey
+ --from-literal=persistenceEndPoint=$env:persistenceEndPoint
+ --from-literal=azureCognitiveRegion=$azureLocation
+ --from-literal=appInsightsKey=$appInsightsKey
+ --from-literal=serviceDnsName=$botSubDomain"
 
 # done
 kubectl create secret generic bot-application-secrets --namespace teams-recording-bot --from-literal=applicationId=$env:BOT_ID `

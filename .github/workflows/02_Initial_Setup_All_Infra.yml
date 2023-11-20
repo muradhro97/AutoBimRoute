@@ -27,9 +27,9 @@ jobs:
       with:
         creds: ${{secrets.AZURE_CREDENTIALS}}
         enable-AzPSSession: true    
-    - name: 'Run Setup Middleware powershell'
-      shell: pwsh
-      run: 03_IaC/00_AzureCLI/01_MiddleWare_iac.ps1
+#    - name: 'Run Setup Middleware powershell'
+#      shell: pwsh
+#      run: 03_IaC/00_AzureCLI/01_MiddleWare_iac.ps1
     - name: 'Run Setup AKS powershell'
       shell: pwsh
       run: 03_IaC/00_AzureCLI/02_AKS_iac.ps1
